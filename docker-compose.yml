@@ -16,10 +16,12 @@ services:
     environment:
       POSTGRES_USERNAME: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRS_DB: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
 
   adminer:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - 8088:8080

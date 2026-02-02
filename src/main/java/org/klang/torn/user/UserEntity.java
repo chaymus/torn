@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import java.math.BigInteger;
+
 @Entity
 @Table(name="users")
 @Builder
@@ -17,7 +19,7 @@ public class UserEntity {
 
     @Id
     @Column(name="user_id")
-    Long userId;
+    BigInteger userId;
 
     @Column(name="user_api_key")
     String userApiKey;

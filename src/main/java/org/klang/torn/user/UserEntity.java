@@ -19,7 +19,7 @@ public class UserEntity {
 
     @Id
     @Column(name="user_id")
-    BigInteger userId;
+    Long userId;
 
     @Column(name="user_api_key")
     String userApiKey;

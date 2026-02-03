@@ -19,7 +19,7 @@ public class UserService {
     private final RestClient restClient;
     private final String MONEY_URI = "/user/money";
 
-    public UserEntity addUser(BigInteger userId, String userApiKey) {
+    public UserEntity addUser(Long userId, String userApiKey) {
         if(userId == null || userApiKey == null || userApiKey.trim().isEmpty()) {
             throw new IllegalArgumentException("invalid params for addUser call");
         }
@@ -27,7 +27,7 @@ public class UserService {
     }
 
     @Transactional
-    public MoneyResponseDTO getMoney(BigInteger userId, String userApiKey) {
+    public MoneyResponseDTO getMoney(Long userId, String userApiKey) {
         MoneyResponseDTO money = null;
         MoneyEntity result = null;
         try {
@@ -50,7 +50,7 @@ public class UserService {
         return moneyMapper.toDTO(result);
     }
 
-    public String getUserApiKey(BigInteger userId) {
+    public String getUserApiKey(Long userId) {
         UserEntity user = userRepository.findById(userId).orElse(null);
         if(user != null) {
             return user.userApiKey;

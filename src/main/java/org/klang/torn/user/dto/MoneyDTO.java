@@ -2,19 +2,17 @@ package org.klang.torn.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.math.BigInteger;
-
 public record MoneyDTO(
-        BigInteger points,
-        BigInteger wallet,
-        BigInteger company,
-        BigInteger vault,
+        Long points,
+        Long wallet,
+        Long company,
+        Long vault,
         @JsonProperty("cayman_bank")
-        BigInteger caymanBank,
+        Long caymanBank,
         @JsonProperty("city_bank")
         CityBankDTO cityBank,
         @JsonProperty("faction")
         FactionDTO faction,
         @JsonProperty("daily_networth")
-        BigInteger dailyNetworth
+        Long dailyNetworth
         ) {}

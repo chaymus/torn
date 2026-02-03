@@ -18,13 +18,13 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<UserEntity> createUser(@RequestParam BigInteger userId, @RequestParam String userApiKey) {
+    public ResponseEntity<UserEntity> createUser(@RequestParam Long userId, @RequestParam String userApiKey) {
         return ResponseEntity.ok(userService.addUser(userId, userApiKey));
     }
 
 
     @GetMapping("/money")
-    public ResponseEntity<MoneyResponseDTO> getMoney(@RequestParam BigInteger userId) {
+    public ResponseEntity<MoneyResponseDTO> getMoney(@RequestParam Long userId) {
         String userApiKey = userService.getUserApiKey(userId);
         return ResponseEntity.ok(userService.getMoney(userId, userApiKey));
     }

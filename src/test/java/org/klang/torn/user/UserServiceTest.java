@@ -36,9 +36,9 @@ class UserServiceTest {
     @Test
     void addUser_withValidFields_returnsUserEntity() {
         //test setup
-        BigInteger userId = BigInteger.ONE;
+        Long userId = 1L;
         String userApiKey = "userApiKey";
-        when(userRepository.save(any())).thenReturn(new UserEntity(BigInteger.ONE, "userApiKey"));
+        when(userRepository.save(any())).thenReturn(new UserEntity(1L, "userApiKey"));
         UserEntity expected = UserEntity.builder().userId(userId).userApiKey(userApiKey).build();
 
         //execute
@@ -52,7 +52,7 @@ class UserServiceTest {
     @Test
     void addUser_withNullFields_throwsIllegalArgumentException() {
         //test setup
-        BigInteger userId = null;
+        Long userId = null;
         String userApiKey = null;
 
         //execute & verify

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import java.math.BigInteger;
 
 @Repository
-public interface UserRepository extends CrudRepository<UserEntity, BigInteger> {
+public interface UserRepository extends CrudRepository<UserEntity, Long> {
 }

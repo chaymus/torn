@@ -3,9 +3,9 @@ package org.klang.torn.user;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
 import java.sql.Timestamp;
 
 @Entity
@@ -13,34 +13,43 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class MoneyEntity {
 
     @Id
     @Column(name="money_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    BigInteger moneyId;
+    private Long moneyId;
 
     @Column(name="points")
-    BigInteger points;
+    private Long points;
 
     @Column(name="wallet")
-    BigInteger wallet;
+    private Long wallet;
 
     @Column(name="company")
-    BigInteger company;
+    private Long company;
 
     @Column(name="vault")
-    BigInteger vault;
+    private Long vault;
 
     @Column(name="cayman_bank")
-    BigInteger caymanBank;
+    private Long caymanBank;
 
     @Column(name="daily_networth")
-    BigInteger dailyNetworth;
+    private Long dailyNetworth;
 
     @Column(name="timestamp")
-    Timestamp timestamp;
+    private Timestamp timestamp;
 
     @Column(name="user_id")
-    BigInteger userId;
+    private Long userId;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "faction_id", referencedColumnName = "faction_id")
+    private FactionEntity faction;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="city_bank_id", referencedColumnName = "city_bank_id")
+    private CityBankEntity cityBank;
 }

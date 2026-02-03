@@ -13,7 +13,29 @@ import java.time.Instant;
 @Component
 public class MoneyMapper {
 
-    public MoneyEntity toEntity(BigInteger userId, MoneyResponseDTO moneyResponseDTO) {
+    public MoneyEntity toEntity(Long userId, MoneyResponseDTO moneyResponseDTO) {
+        MoneyDTO m = moneyResponseDTO.money();
+
+        CityBankEntity cityBank = null;
+        if(m.cityBank() != null) {
+            cityBank = CityBankEntity.builder()
+                    .amount(m.cityBank().amount())
+                    .profit(m.cityBank().profit())
+                    .duration(m.cityBank().duration())
+                    .interestRate(m.cityBank().interestRate())
+                    .until(m.cityBank().until())
+                    .investedAt(m.cityBank().investedAt())
+                    .build();
+        }
+
+        FactionEntity faction = null;
+        if (m.faction() != null) {
+            faction = FactionEntity.builder()
+                    .money(m.faction().money())
+                    .points(m.faction().points())
+                    .build();
+        }
+
         return MoneyEntity.builder()
                 .points(moneyResponseDTO.money().points())
                 .wallet(moneyResponseDTO.money().wallet())
@@ -23,19 +45,42 @@ public class MoneyMapper {
                 .dailyNetworth(moneyResponseDTO.money().dailyNetworth())
                 .userId(userId)
                 .timestamp(Timestamp.from(Instant.now()))
+                .cityBank(cityBank)
+                .faction(faction)
                 .build();
     }
 
     public MoneyResponseDTO toDTO(MoneyEntity moneyEntity) {
+        CityBankDTO cityBankDTO = null;
+        if (moneyEntity.getCityBank() != null) {
+            var cb = moneyEntity.getCityBank();
+            cityBankDTO = new CityBankDTO(
+                    cb.getAmount(),
+                    cb.getProfit(),
+                    cb.getDuration(),
+                    cb.getInterestRate(),
+                    cb.getUntil(),
+                    cb.getInvestedAt()
+            );
+        }
+
+        FactionDTO factionDTO = null;
+        if (moneyEntity.getFaction() != null) {
+            var f = moneyEntity.getFaction();
+            factionDTO = new FactionDTO(f.getMoney(), f.getPoints());
+        }
+
         MoneyDTO moneyDTO = new MoneyDTO(
-                moneyEntity.points,
-                moneyEntity.wallet,
-                moneyEntity.company,
-                moneyEntity.vault,
-                moneyEntity.caymanBank,
-                new CityBankDTO(null, null, null, null, null, null),
-                new FactionDTO(null, null),
-                moneyEntity.dailyNetworth);
+                moneyEntity.getPoints(),
+                moneyEntity.getWallet(),
+                moneyEntity.getCompany(),
+                moneyEntity.getVault(),
+                moneyEntity.getCaymanBank(),
+                cityBankDTO,
+                factionDTO,
+                moneyEntity.getDailyNetworth()
+        );
+
         return new MoneyResponseDTO(moneyDTO);
     }
 }
